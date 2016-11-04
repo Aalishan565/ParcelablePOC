@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    Button mBtnSend;
+    private Button mBtnSendSerlizable;
+    private Button mBtnParcelable;
     private EditText mEtName;
     private EditText mEtCell;
 
@@ -18,8 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mEtName = (EditText) findViewById(R.id.et_name);
         mEtCell = (EditText) findViewById(R.id.et_cell);
-        mBtnSend = (Button) findViewById(R.id.btn_send);
-        mBtnSend.setOnClickListener(new View.OnClickListener() {
+        mBtnParcelable = (Button) findViewById(R.id.btn_send_using_parcelableble);
+        mBtnSendSerlizable = (Button) findViewById(R.id.btn_send_using_serlizable);
+        mBtnParcelable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = mEtName.getText().toString();
@@ -28,7 +30,23 @@ public class MainActivity extends AppCompatActivity {
                 p.name = name;
                 p.cellNumber = cell;
                 Intent i = new Intent(MainActivity.this, SecondActivity.class);
-                i.putExtra("parcel", p);
+               i.putExtra("parcel", p);
+               i.putExtra("count",1);
+
+                startActivity(i);
+
+            }
+        });
+        mBtnSendSerlizable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = mEtName.getText().toString();
+                String cell = mEtCell.getText().toString();
+                Person2 p = new Person2(name,cell);
+                Intent i = new Intent(MainActivity.this, SecondActivity.class);
+                i.putExtra("serlizable",p);
+                i.putExtra("count",2);
+
                 startActivity(i);
 
             }

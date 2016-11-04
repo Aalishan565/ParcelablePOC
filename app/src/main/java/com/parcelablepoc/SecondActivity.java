@@ -11,11 +11,23 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        Intent i =getIntent();
+        Intent i = getIntent();
         Bundle b = i.getExtras();
-        Person p =b.getParcelable("parcel");
-        String name = p.name;
-        String surname = p.cellNumber;
+        int getCount = b.getInt("count");
+        String name;
+        String surname;
+        if (getCount == 1) {
+            Person p = b.getParcelable("parcel");
+            name = p.name;
+            surname = p.cellNumber;
+
+        } else {
+            Person2 p = (Person2) b.getSerializable("serlizable");
+            name = p.getFirstName();
+            surname = p.getLastName();
+
+        }
         Toast.makeText(this, "here is your name  " + name + "  \nhere is your cell  " + surname, Toast.LENGTH_SHORT).show();
+
     }
 }
